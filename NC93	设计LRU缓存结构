@@ -1,0 +1,58 @@
+class Solution {
+public:
+    /**
+     * lru design
+     * @param operators int整型vector<vector<>> the ops
+     * @param k int整型 the k
+     * @return int整型vector
+     */
+    vector<int> LRU(vector<vector<int> >& operators, int k) {
+        // write code here
+        vector<int> val;
+        vector<int> key;
+        vector<int> result;
+        for(int i=0;i<operators.size();i++){
+            if(operators[i][0]==1){
+                set(operators[i][1],operators[i][2],key,val,k);
+            }
+            if(operators[i][0]==2){
+                get(operators[i][1],key,val,result);
+            }
+        }
+        return result;
+    }
+    void set(int a,int b,vector<int> &key,vector<int> &val,int k){
+        if(val.size()<k){
+            key.push_back(a);
+            val.push_back(b);
+        }
+        else{
+            key.erase(key.begin());
+            val.erase(val.begin());
+            key.push_back(a);
+            val.push_back(b);
+        }
+    }
+    void get(int a,vector<int>& key,vector<int>& val,vector<int>& result){
+        int t=-1;
+        for(int i=0;i<key.size();i++){
+            if(a==key[i]){
+                t=i;
+                break;
+            }
+        }
+            if(t==-1){
+                result.push_back(-1);
+            }
+            else{
+                int t1,t2;
+                t1=key[t];
+                t2=val[t];
+                key.erase(key.begin()+t);
+                val.erase(val.begin()+t);
+                key.push_back(t1);
+                val.push_back(t2);
+                result.push_back(t2);
+            }
+        }
+};
