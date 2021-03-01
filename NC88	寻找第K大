@@ -1,0 +1,41 @@
+class Solution {
+public:
+    int res;
+    int findKth(vector<int> a, int n, int K) {
+        // write code here
+//         if(K>n||a.size()==0){
+//             return {};
+//         }
+        quicksort(a,0,a.size()-1,a.size()-K);
+        return a[res];
+    }
+    int partion(vector<int>& a,int left,int right){
+        int povit=a[left];
+        while(left<right){
+            while(left<right&&a[right]>=povit){
+                right--;
+            }
+            a[left]=a[right];
+            while(left<right&&a[left]<=povit){
+                left++;
+            }
+            a[right]=a[left];
+        }
+        a[left]=povit;
+        return left;
+    }
+    void quicksort(vector<int>& a,int left,int right,int k){
+        int pos=partion(a, left,right);
+        if(pos==k){
+            res=pos;
+            return;
+        }
+        if(pos>k){
+            quicksort(a,0,pos-1,k);
+        }
+        if(pos<k){
+            quicksort(a, pos+1,a.size()-1,k);
+        }
+        
+    }
+};
