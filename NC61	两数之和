@@ -1,0 +1,23 @@
+class Solution {
+public:
+    /**
+     * 
+     * @param numbers int整型vector 
+     * @param target int整型 
+     * @return int整型vector
+     */
+    vector<int> twoSum(vector<int>& numbers, int target) {
+        unordered_map<int,int> m;
+//        for(int i=0;i<numbers.size();i++){
+//            m[numbers[i]]=i;
+//        }
+        for(int i=0;i<numbers.size();i++){
+            auto it=m.find(target-numbers[i]);
+            if(it!=m.end()){
+                return {it->second+1,i+1};
+            }
+        m[numbers[i]]=i;
+        }
+        return {};
+    }
+};
