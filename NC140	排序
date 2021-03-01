@@ -7,7 +7,7 @@ public:
      * @return int整型vector
      */
 //     //快速排序
-    vector<int> sortArray(vector<int>& arr) {
+    vector<int> MySort(vector<int>& arr) {
         // write code here
         quicksort(arr, 0, arr.size()-1);
         return arr;
@@ -20,17 +20,15 @@ public:
                 high--;
             }
             arr[low]=arr[high];
-            //swap(arr[low],arr[high]);
             while(low<high&&arr[low]<=pivot){
                 low++;
             }
+            //swap(arr[low],arr[high]);
             arr[high]=arr[low];
             //swap(arr[low],arr[high]);
-
         }
         arr[high]=pivot;
-        //swap(arr[high],pivot);
-        return low;
+        return high;
     }
     void quicksort(vector<int>& arr,int low,int high){
         if(low<high){
