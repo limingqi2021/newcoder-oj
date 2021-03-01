@@ -7,34 +7,38 @@ public:
      * @return int整型vector
      */
 //     //快速排序
-//     vector<int> MySort(vector<int>& arr) {
-//         // write code here
-//         quicksort(arr, 0, arr.size()-1);
-//         return arr;
+    vector<int> sortArray(vector<int>& arr) {
+        // write code here
+        quicksort(arr, 0, arr.size()-1);
+        return arr;
      
-//     }
-//     int partion(vector<int> &arr,int low,int high){
-//         int pivot=arr[high];
-//         while(low<high){
-//             while(low<high&&arr[low]<=pivot){
-//                 low++;
-//             }
-//             //swap(arr[low],arr[high]);
-//             while(low<high&&arr[high]>=pivot){
-//                 high--;
-//             }
-//             swap(arr[low],arr[high]);
-//         }
-//         arr[low]=pivot;
-//         return low;
-//     }
-//     void quicksort(vector<int>& arr,int low,int high){
-//         if(low<high){
-//             int pos=partion(arr,  low, high);
-//             quicksort(arr, low, pos-1);
-//             quicksort(arr, pos+1, high);
-//         }
-//     }
+    }
+    int partion(vector<int> &arr,int low,int high){
+        int pivot=arr[low];
+        while(low<high){
+            while(low<high&&arr[high]>=pivot){
+                high--;
+            }
+            arr[low]=arr[high];
+            //swap(arr[low],arr[high]);
+            while(low<high&&arr[low]<=pivot){
+                low++;
+            }
+            arr[high]=arr[low];
+            //swap(arr[low],arr[high]);
+
+        }
+        arr[high]=pivot;
+        //swap(arr[high],pivot);
+        return low;
+    }
+    void quicksort(vector<int>& arr,int low,int high){
+        if(low<high){
+            int pos=partion(arr,  low, high);
+            quicksort(arr, low, pos-1);
+            quicksort(arr, pos+1, high);
+        }
+    }
     
 //     //堆排序
 //     vector<int> MySort(vector<int>& arr) {
@@ -70,33 +74,33 @@ public:
 //         }
 //     }
     //归并排序 递归
-    vector<int> MySort(vector<int>& arr) {
-        mergesort(arr, 0, arr.size()-1);
-        return arr;
-    }
-    void mergesort(vector<int>& arr,int left,int right){
-        if(left<right){
-            int mid=(left+right)/2;
-            mergesort(arr,left,mid);
-            mergesort(arr,mid+1,right);
-            merge(arr,left,mid,mid+1,right);
-        }
-    }
-    void merge(vector<int>& arr,int left1,int right1,int left2,int right2){
-        vector<int> res(right2-left1+1);
-        //int res[10000];
-        int i=left1,j=left2,count=0;
-        while(i<=right1&&j<=right2){
-            if(arr[i]<arr[j])
-                res[count++]=arr[i++];
-            else
-                res[count++]=arr[j++];
-        }
-        while(i<=right1) res[count++]=arr[i++];
-        while(j<=right2) res[count++]=arr[j++];
-        for(int i=0;i<right2-left1+1;i++)
-            arr[left1+i]=res[i];
+//     vector<int> MySort(vector<int>& arr) {
+//         mergesort(arr, 0, arr.size()-1);
+//         return arr;
+//     }
+//     void mergesort(vector<int>& arr,int left,int right){
+//         if(left<right){
+//             int mid=(left+right)/2;
+//             mergesort(arr,left,mid);
+//             mergesort(arr,mid+1,right);
+//             merge(arr,left,mid,mid+1,right);
+//         }
+//     }
+//     void merge(vector<int>& arr,int left1,int right1,int left2,int right2){
+//         vector<int> res(right2-left1+1);
+//         //int res[10000];
+//         int i=left1,j=left2,count=0;
+//         while(i<=right1&&j<=right2){
+//             if(arr[i]<arr[j])
+//                 res[count++]=arr[i++];
+//             else
+//                 res[count++]=arr[j++];
+//         }
+//         while(i<=right1) res[count++]=arr[i++];
+//         while(j<=right2) res[count++]=arr[j++];
+//         for(int i=0;i<right2-left1+1;i++)
+//             arr[left1+i]=res[i];
         
-    }
+//     }
     
 };
