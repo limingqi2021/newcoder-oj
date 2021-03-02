@@ -1,0 +1,32 @@
+/**
+ * struct ListNode {
+ *	int val;
+ *	struct ListNode *next;
+ * };
+ */
+
+class Solution {
+public:
+    /**
+     * 
+     * @param head ListNode类 
+     * @param n int整型 
+     * @return ListNode类
+     */
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        // write code here
+        ListNode* temp=new ListNode(0);
+        temp->next=head;
+        ListNode* left=temp;
+        ListNode* right=head;
+        for(int i=0;i<n;i++){
+            right=right->next;
+        }
+        while(right!=nullptr){
+            left=left->next;
+            right=right->next;
+        }
+        left->next=left->next->next;
+        return temp->next;
+    }
+};
