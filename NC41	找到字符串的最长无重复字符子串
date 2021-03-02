@@ -1,0 +1,23 @@
+class Solution {
+public:
+    /**
+     * 
+     * @param arr int整型vector the array
+     * @return int整型
+     */
+    int maxLength(vector<int>& arr) {
+        // write code here
+        map<int,int> m;
+        int res=0;
+        for(int i=0,j=0;j<arr.size();j++){
+            m[arr[j]]++;
+            while(m[arr[j]]>1){
+               
+                m[arr[i]]--;
+                i++;
+            }
+            res=max(res,j-i+1);
+        }
+        return res;
+    }
+};
