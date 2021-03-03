@@ -1,0 +1,24 @@
+class Solution {
+public:
+    /**
+     * 反转字符串
+     * @param str string字符串 
+     * @return string字符串
+     */
+    string solve(string str) {
+        // write code here
+//         int len=str.size()-1;
+//         string res="";
+//         for(int i=len;i>=0;i--){
+//             res+=str[i];
+//         }
+//         return res;
+        int left=0,right=str.size()-1;
+        while(left<right){
+            swap(str[left],str[right]);
+            left++;
+            right--;
+        }
+        return str;
+    }
+};
