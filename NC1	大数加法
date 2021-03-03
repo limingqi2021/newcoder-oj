@@ -1,0 +1,35 @@
+class Solution {
+public:
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     * 计算两个数之和
+     * @param s string字符串 表示第一个整数
+     * @param t string字符串 表示第二个整数
+     * @return string字符串
+     */
+    string solve(string s, string t) {
+        // write code here
+        int len1=s.size()-1,len2=t.size()-1;
+        string res="";
+        int carry=0;
+        while(len1>=0||len2>=0||carry!=0){
+            int x,y,sum;
+            if(len1>=0){
+                x=s[len1--]-'0';
+            }else{
+                x=0;
+            }
+            if(len2>=0){
+                y=t[len2--]-'0';
+            }else{
+                y=0;
+            }
+            sum=x+y+carry;
+            carry=sum/10;
+            sum=sum%10;
+            res+='0'+sum;
+        }
+        reverse(res.begin(), res.end());
+        return res;
+    }
+};
