@@ -1,0 +1,53 @@
+/**
+ * struct ListNode {
+ *	int val;
+ *	struct ListNode *next;
+ * };
+ */
+
+class Solution {
+public:
+    /**
+     * 
+     * @param head1 ListNode类 
+     * @param head2 ListNode类 
+     * @return ListNode类
+     */
+    ListNode* addInList(ListNode* head1, ListNode* head2) {
+        // write code here
+        ListNode* p1=reverseList(head1);
+        ListNode* p2=reverseList(head2);
+        ListNode* newHead=new ListNode(0);
+        ListNode* p=newHead;
+        int carry=0,sum=0;
+        while(p1||p2||carry){
+            sum=0;
+            if(p1){
+                sum+=p1->val;
+                p1=p1->next;
+            }
+            if(p2){
+                sum+=p2->val;
+                p2=p2->next;
+            }
+            sum+=carry;
+            ListNode* temp=new ListNode(sum%10);
+            carry=sum/10;
+            p->next=temp;
+            p=p->next;
+            
+        }
+        return reverseList(newHead->next);
+    }
+    ListNode* reverseList(ListNode* head){
+        ListNode* pre=nullptr;
+        ListNode* cur=head;
+        while(cur!=nullptr){
+            ListNode* temp=cur->next;
+            cur->next=pre;
+            pre=cur;
+            cur=temp;
+        }
+        return pre;
+    }
+};
