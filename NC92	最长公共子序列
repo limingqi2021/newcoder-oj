@@ -1,0 +1,37 @@
+
+class Solution {
+public:
+    /**
+     * longest common subsequence
+     * @param s1 string字符串 the string
+     * @param s2 string字符串 the string
+     * @return string字符串
+     */
+    string LCS(string s1, string s2) {
+        // write code here
+        int n=s1.size(),m=s2.size();
+        string res="";
+        vector<vector<int>> dp(n+1,vector<int> (m+1,0));
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(s1[i]==s2[j]){
+                    dp[i+1][j+1]=dp[i][j]+1;
+                }else{
+                    dp[i+1][j+1]=max(dp[i][j+1],dp[i+1][j]);
+                }
+            }
+        }
+        string str="";
+        while(dp[n][m]>0){
+            while(dp[n-1][m]==dp[n][m])
+                n--;
+            while(dp[n][m-1]==dp[n][m])
+                m--;
+            str+=s1[n-1];
+            n--;
+            m--;
+        }
+        reverse(str.begin(),str.end());
+        return str==""?"-1":str;
+    }
+};
