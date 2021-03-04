@@ -1,0 +1,32 @@
+class Solution {
+public:
+    /**
+     * retrun the longest increasing subsequence
+     * @param arr int整型vector the array
+     * @return int整型vector
+     */
+    vector<int> LIS(vector<int>& arr) {
+        // write code here
+        int len=arr.size();
+        vector<int> res,temp;
+        res.push_back(arr[0]);
+        temp.push_back(1);
+        for(int i=1;i<len;i++){
+            if(arr[i]>res.back())
+            {
+                res.push_back(arr[i]);
+                temp.push_back(res.size());
+            }else{
+                int index=lower_bound(res.begin(), res.end(), arr[i])-res.begin();
+                res[index]=arr[i];
+                temp.push_back(index+1);
+            }
+        }
+        for(int i=arr.size()-1,j=res.size();j>0;i--){
+            if(temp[i]==j){
+                res[--j]=arr[i];
+            }
+    }
+        return res;
+    }
+};
