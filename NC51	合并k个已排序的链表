@@ -1,0 +1,65 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+struct cmp{
+    bool operator()(ListNode *a,ListNode *b){
+        return a->val>b->val;
+    }
+};
+class Solution {
+public:
+    ListNode *mergeKLists(vector<ListNode *> &lists) {
+//         return mergeLists(lists,0,lists.size()-1);
+//     }
+//     ListNode* mergeLists(vector<ListNode* > &lists,int l,int r){
+//         if(l==r)
+//             return lists[l];
+//         if(l>r)
+//             return nullptr;
+//         int mid=(l+r)/2;
+//         return mergeTwoLists(mergeLists(lists,l,mid),mergeLists(lists,mid+1,r));
+//     }
+//     ListNode* mergeTwoLists(ListNode* a,ListNode* b){
+// //         if(a==nullptr||b==nullptr)
+// //             return a==nullptr?b:a;
+//         ListNode* head=new ListNode(0);
+//         ListNode* p=a,* q=b;
+//         ListNode* cur=head;
+//             while(p!=nullptr&&q!=nullptr){
+//                 if(p->val<=q->val){
+//                     cur->next=p;
+//                     p=p->next;
+//                 }else{
+//                     cur->next=q;
+//                     q=q->next;
+//                 }
+//                 cur=cur->next;
+//             }
+//         cur->next=q==nullptr?p:q;
+//         return head->next;
+//     }
+        priority_queue<ListNode*,vector<ListNode*>,cmp> q;
+        for(int i=0;i<lists.size();i++){
+            if(lists[i]!=nullptr){
+                q.push(lists[i]);
+            }
+        }
+            ListNode* head=new ListNode(0);
+            ListNode* temp=head;
+            while(!q.empty()){
+                ListNode* t=q.top();
+                q.pop();
+                temp->next=t;
+                temp=temp->next;
+                if(t->next)
+                    q.push(t->next);
+            }
+            
+        return head->next;
+    }
+};
