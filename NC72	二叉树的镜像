@@ -1,0 +1,42 @@
+/**
+ * struct TreeNode {
+ *	int val;
+ *	struct TreeNode *left;
+ *	struct TreeNode *right;
+ *	TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ * };
+ */
+class Solution {
+public:
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
+     * 
+     * @param pRoot TreeNode类 
+     * @return TreeNode类
+     */
+    TreeNode* Mirror(TreeNode* pRoot) {
+        // write code here
+        if(pRoot==nullptr)
+            return nullptr;
+//         TreeNode* temp=pRoot->left;
+//         pRoot->left=Mirror(pRoot->right);
+//         pRoot->right=Mirror(temp);
+//         return pRoot;
+        stack<TreeNode*> s;
+        s.push(pRoot);
+        while(!s.empty()){
+            TreeNode* temp=s.top();
+            s.pop();
+            if(temp->left!=nullptr)
+                s.push(temp->left);
+            if(temp->right!=nullptr)
+                s.push(temp->right);
+            TreeNode* t=temp->left;
+            temp->left=temp->right;
+            temp->right=t;
+        }
+        return pRoot;
+        
+    }
+};
