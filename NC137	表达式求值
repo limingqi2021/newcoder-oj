@@ -1,0 +1,47 @@
+class Solution {
+public:
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     * 返回表达式的值
+     * @param s string字符串 待计算的表达式
+     * @return int整型
+     */
+    int solve(string s) {
+        // write code here
+        int n=s.size();
+        stack<int> st;
+        char flag='+';
+        int res=0,num=0;
+        for(int i=0;i<n;i++){
+            if(s[i]<='9'&&s[i]>='0')
+                num=num*10+s[i]-'0';
+            if(s[i]=='('){
+                int j=i+1;
+                int count=1;
+                while(count){
+                    if(s[j]==')') count--;
+                    if(s[j]=='(') count++;
+                    j++;
+                }
+                num=solve(s.substr(i+1,j-i-1));
+                i=j-1;
+            }
+            if(s[i]=='('||s[i]==')'||s[i]=='-'||s[i]=='+'||s[i]=='*'||i==n-1) {
+                if(flag == '+') st.push(num);
+                if(flag == '-') st.push(-num);
+                if(flag == '*'){
+                    num *= st.top();
+                    st.pop();
+                    st.push(num);
+                }
+                flag = s[i];
+                num = 0;
+            }           
+        }
+           while(!st.empty()){
+            res += st.top();
+            st.pop();
+        }
+        return res;
+    }
+};
