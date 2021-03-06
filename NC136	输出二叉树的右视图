@@ -1,0 +1,68 @@
+class Solution {
+public:
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     * 求二叉树的右视图
+     * @param xianxu int整型vector 先序遍历
+     * @param zhongxu int整型vector 中序遍历
+     * @return int整型vector
+     */
+    map<int,int> index;
+    vector<int> res;
+    vector<int> solve(vector<int>& xianxu, vector<int>& zhongxu) {
+        // write code here
+        int n=xianxu.size();
+        if(n==0)
+            return {};
+        for(int i=0;i<n;i++){
+            index[zhongxu[i]]=i;
+        }
+        TreeNode* root=build(xianxu,zhongxu,0,n-1,0,n-1);
+        if(!root)
+            return res;
+        dfs(root,0);
+//         queue<TreeNode*> s;
+//         s.push(root);
+//         while(!s.empty()){
+//             int n=s.size();
+//             for(int i=0;i<n;i++){
+//             TreeNode* temp=s.front();
+//             s.pop();
+//             if(temp->left)
+//                 s.push(temp->left);
+//             if(temp->right)
+//                 s.push(temp->right);
+//             if(i==n-1)
+//                 res.push_back(temp->val);
+//             }
+//         }
+        return res;
+    }
+    void dfs(TreeNode* root,int depth){
+        if(!root)
+            return;
+        if(depth==res.size()){
+            res.push_back(root->val);
+        }
+        depth++;
+        dfs(root->right,depth);
+        dfs(root->left,depth);
+    }
+    TreeNode* build(vector<int> &preorder,vector<int> &inorder,int preL,int preR,int inL,int inR){
+        if(preL>preR){
+            return nullptr;
+        }
+        TreeNode* root=new TreeNode(preorder[preL]);
+
+//         int k;
+//         for(k=inL;k<=inR;k++){
+//             if(inorder[k]==preorder[preL])
+//                 break;
+//         }
+        int k=index[preorder[preL]];
+        int num=k-inL;
+        root->left=build(preorder,inorder,preL+1,preL+num,inL,k-1);
+        root->right=build(preorder,inorder,preL+num+1,preR,k+1,inR);
+        return root;
+    }
+};
