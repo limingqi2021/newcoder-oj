@@ -1,0 +1,42 @@
+class Solution {
+public:
+    /**
+     * return a array which include all ans for op3
+     * @param op int整型vector<vector<>> operator
+     * @return int整型vector
+     */
+    stack<int> a,b;
+    vector<int> getMinStack(vector<vector<int> >& op) {
+        // write code here
+        
+        vector<int> res;
+        if(op.size()==0)
+            return {};
+        for(int i=0;i<op.size();i++){
+            if(op[i][0]==1)
+                Push(op[i][1]);
+            if(op[i][0]==2){
+                Pop();
+            }
+            if(op[i][0]==3){
+                res.push_back(getMin());
+            }
+        }
+        return res;
+        }
+        void Push(int x){
+            a.push(x);
+            if(b.empty()||b.top()>=x)
+                b.push(x);
+            else
+                b.push(b.top());
+        }
+        void Pop(){
+            a.pop();
+            b.pop();
+        }
+        int getMin(){
+            return b.top();
+        }
+    
+};
