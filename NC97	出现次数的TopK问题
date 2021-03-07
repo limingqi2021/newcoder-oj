@@ -1,0 +1,43 @@
+struct cmp{
+    bool operator()(pair<string,int>&a,pair<string, int>& b){
+      return a.second == b.second ? a.first < b.first : a.second > b.second;
+    }
+};
+class Solution {
+public:
+    /**
+     * return topK string
+     * @param strings string字符串vector strings
+     * @param k int整型 the k
+     * @return string字符串vector<vector<>>
+     */
+    
+    vector<vector<string> > topKstrings(vector<string>& strings, int k) {
+        // write code here
+        map<string,int> mp;
+        for(string i:strings)
+            mp[i]++;
+        
+        priority_queue<pair<string,int>,vector<pair<string,int>>,cmp> q;
+        map<string,int> ::iterator it=mp.begin();
+        for(int i=0;i<k&&it!=mp.end();i++){
+            q.push({it->first,it->second});
+            it++;
+        }
+        while(it!=mp.end()){
+            if(it->second>q.top().second||(it->second==q.top().second&&it->first<q.top().first)){
+                q.pop();
+                q.push({it->first,it->second});
+            }
+            it++;
+        }
+
+        vector<vector<string>> res;
+        while(!q.empty()){
+            res.push_back({q.top().first,to_string(q.top().second)});
+           q.pop();
+        }
+        reverse(res.begin(),res.end());
+        return res;
+    }
+};
