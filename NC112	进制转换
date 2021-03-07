@@ -1,0 +1,28 @@
+class Solution {
+public:
+    /**
+     * 进制转换
+     * @param M int整型 给定整数
+     * @param N int整型 转换到的进制
+     * @return string字符串
+     */
+    string solve(int M, int N) {
+        // write code here
+        if(M==0) return "0";
+        bool flag=true;
+        if(M<0){
+            M=-M;
+            flag=false;
+        }
+        string res="";
+        string p="0123456789ABCDEF";
+        while(M!=0){
+            res+=p[M%N];
+            M=M/N;
+        }
+        reverse(res.begin(),res.end());
+        if(!flag)
+            res.insert(0, "-");
+        return res;
+    }
+};
