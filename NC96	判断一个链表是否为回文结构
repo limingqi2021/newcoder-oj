@@ -1,0 +1,28 @@
+/**
+ * struct ListNode {
+ *	int val;
+ *	struct ListNode *next;
+ * };
+ */
+
+class Solution {
+public:
+    /**
+     * 
+     * @param head ListNode类 the head
+     * @return bool布尔型
+     */
+    bool isPail(ListNode* head) {
+        // write code here
+        vector<int> temp;
+        while(head!=nullptr){
+            temp.push_back(head->val);
+            head=head->next;
+        }
+        for(int i=0,j=temp.size()-1;i<j;i++,j--){
+            if(temp[i]!=temp[j])
+                return false;
+        }
+        return true;
+    }
+};
