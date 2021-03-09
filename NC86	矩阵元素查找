@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<int> findElement(vector<vector<int> > mat, int n, int m, int x) {
+        // write code here
+        if(mat.size()==0){
+            return {};
+        }
+        
+        int l=0,d=m-1;
+        while(l<n&&d>=0){
+            if(mat[l][d]==x)
+                return {l,d};
+            else if(mat[l][d]>x){
+                d--;
+            }else{
+                l++;
+            }
+        }
+        return {l,d};
+    }
+};
