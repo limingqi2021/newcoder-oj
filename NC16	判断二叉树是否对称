@@ -1,0 +1,30 @@
+/**
+ * struct TreeNode {
+ *	int val;
+ *	struct TreeNode *left;
+ *	struct TreeNode *right;
+ * };
+ */
+
+class Solution {
+public:
+    /**
+     * 
+     * @param root TreeNode类 
+     * @return bool布尔型
+     */
+    bool isSymmetric(TreeNode* root) {
+        // write code here
+        if(root==nullptr)
+            return true;
+        return recur(root->left,root->right);
+    }
+    bool recur(TreeNode* left,TreeNode* right){
+        if(left==nullptr&&right==nullptr)
+            return true;
+        if(left==nullptr||right==nullptr||left->val!=right->val)
+            return false;
+        return recur(left->left,right->right)&&recur(left->right,right->left);
+    }
+    
+};
