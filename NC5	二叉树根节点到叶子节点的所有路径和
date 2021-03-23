@@ -1,0 +1,35 @@
+/**
+ * struct TreeNode {
+ *	int val;
+ *	struct TreeNode *left;
+ *	struct TreeNode *right;
+ * };
+ */
+
+class Solution {
+public:
+    /**
+     * 
+     * @param root TreeNode类 
+     * @return int整型
+     */
+    
+    int sumNumbers(TreeNode* root) {
+        // write code here
+        int res=0;
+        if(root==nullptr)
+            return 0;
+        dfs(root,res,root->val);
+        return res;
+    }
+    void dfs(TreeNode* root,int &res,int num){
+        if(root->left==nullptr&&root->right==nullptr)
+               res+=num;
+        if(root->left){
+            dfs(root->left,res,num*10+root->left->val);
+        }
+        if(root->right){
+            dfs(root->right,res,num*10+root->right->val);
+        }
+    }
+};
