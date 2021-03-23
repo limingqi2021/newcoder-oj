@@ -1,0 +1,36 @@
+class Solution {
+public:
+    /**
+     * find median in two sorted array
+     * @param arr1 int整型vector the array1
+     * @param arr2 int整型vector the array2
+     * @return int整型
+     */
+    int findMedianinTwoSortedAray(vector<int>& arr1, vector<int>& arr2) {
+        // write code here
+        int n=arr1.size();
+        if(n==0)
+            return 0;
+        return findk(arr1,arr2,n,0,0);
+    }
+    int findk(vector<int> &arr1,vector<int> &arr2,int k,int a,int b){
+        while(true){
+        if(a==arr1.size())
+            return arr2[b+k-1];
+        if(b==arr2.size())
+            return arr1[a+k-1];
+        if(k==1)
+            return min(arr1[a],arr2[b]);
+        int n=arr1.size();
+        int i=min(a+k/2-1,n-1);
+        int j=min(b+k/2-1,n-1);
+        if(arr1[i]<arr2[j]){
+            k-=i-a+1;
+            a=i+1;
+        }else{
+            k-=j-b+1;
+            b=j+1;
+        }
+    }
+    }
+};
