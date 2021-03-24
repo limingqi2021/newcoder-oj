@@ -1,0 +1,84 @@
+/**
+ * struct TreeNode {
+ *	int val;
+ *	struct TreeNode *left;
+ *	struct TreeNode *right;
+ * };
+ */
+
+class Solution {
+public:
+    /**
+     * 
+     * @param root TreeNode类 the root
+     * @return bool布尔型vector
+     */
+    vector<bool> judgeIt(TreeNode* root) {
+        // write code here
+        vector<bool> res;
+        if(!root) return {};
+        vector<int> num;
+        inorder(root,num);
+        int flag=1;
+        for(int i=1;i<num.size();i++){
+            if(num[i-1]>num[i]){
+                flag=0;
+                break;
+            }
+        }
+        if(flag==1)
+            res.push_back(true);
+        else
+            res.push_back(false);
+        res.push_back(isComplete(root));
+        return res;
+    }
+    void inorder(TreeNode* root,vector<int> &num){
+        if(root==nullptr) return;
+        inorder(root->left,num);
+        num.push_back(root->val);
+        inorder(root->right, num);
+    }
+//     bool isBST(TreeNode* root){
+//         vector<int> res;
+//         stack<TreeNode*> s;
+//         long pre=INT_MIN;
+//         while(root!=nullptr||!s.empty()){
+//             while(root){
+//                 s.push(root);
+//                 root->left;
+//             }
+//             root=s.top();
+//             s.pop();
+//             if(root->val<pre)
+//                 return false;
+//             pre=root->val;
+//             root=root->right;
+//         }
+//         return true;
+//     }
+    bool isComplete(TreeNode* root){
+        if(!root) return true;
+        queue<TreeNode*> q;
+        q.push(root);
+        while(!q.empty()){
+            TreeNode* t=q.front();
+            q.pop();
+            if(t->left&&t->right){
+               q.push(t->left); 
+               q.push(t->right);
+            }else if(t->left==nullptr&&t->right){
+                return false;
+            }else if(t->left&&t->right==nullptr){
+                 while(!q.empty()){
+                      TreeNode* t=q.front();
+                      q.pop();
+                      if(t->left||t->right){
+                         return false;
+                     }
+                }
+            }
+        }
+        return true;
+    }
+};
