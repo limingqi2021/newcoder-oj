@@ -1,0 +1,32 @@
+/**
+ * struct TreeNode {
+ *	int val;
+ *	struct TreeNode *left;
+ *	struct TreeNode *right;
+ * };
+ */
+
+class Solution {
+public:
+    /**
+     * 
+     * @param root TreeNode类 
+     * @return int整型
+     */
+    int res=INT_MIN;
+    int maxPathSum(TreeNode* root) {
+        // write code here
+        dfs(root);
+        return res;
+    }
+    int dfs(TreeNode* root){
+        if(root==nullptr)
+            return 0;
+        int left=max(0,dfs(root->left));
+        int right=max(0,dfs(root->right));
+        int sum=root->val+left+right;
+        res=max(res,sum);
+        int num=root->val+max(left,right);
+        return num;
+    }
+};
